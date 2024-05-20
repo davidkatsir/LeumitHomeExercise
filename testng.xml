@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite name="MyTestSuite">
+  <test name="MyTest">
+    <classes>
+      <class name="tempTest.WebFormTest" /> </classes>
+  </test>
+</suite>
