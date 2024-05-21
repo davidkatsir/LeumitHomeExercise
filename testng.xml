@@ -2,6 +2,8 @@
 <suite name="MyTestSuite">
   <test name="MyTest">
     <classes>
-      <class name="tempTest.WebFormTest" /> </classes>
+      <class name="demoGuru99.Guru99Test"/>
+      <class name="w3schools.HtmlTablesTest"/>
+    </classes>
   </test>
 </suite>
