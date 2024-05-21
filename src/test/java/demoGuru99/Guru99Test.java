@@ -26,39 +26,36 @@ public class Guru99Test {
         }
     }
 
-    @Test
-    @Description("Test selecting a menu item using one string parameter")
-    public void testSelectMenuItemSingleString() {
-        guru99Page.selectMenuItem("SEO; Page-1");
-        // Verify the URL after navigation
+    private void verifyAndRefresh(String topMenuItem, String subMenuItem) {
+        String currentUrl = driver.getCurrentUrl();
+        if (currentUrl.equals("https://demo.guru99.com/#google_vignette")) {
+            driver.navigate().refresh();
+            if (subMenuItem.isEmpty()) {
+                guru99Page.selectMenuItem(topMenuItem);
+            } else {
+                guru99Page.selectMenuItem(topMenuItem, subMenuItem);
+            }
+        }
         try {
             Thread.sleep(2000);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-//        Assert.assertEquals(driver.getCurrentUrl(), "https://demo.guru99.com/seo/page-1.html");
-        Assert.assertEquals(driver.getCurrentUrl(), "https://demo.guru99.com/#google_vignette");
+    }
+
+    @Test
+    @Description("Test selecting a menu item using one string parameter")
+    public void testSelectMenuItemSingleString() {
+        guru99Page.selectMenuItem("SEO; Page-1");
+        verifyAndRefresh("SEO", "Page-1");
+        Assert.assertEquals(driver.getCurrentUrl(), "https://demo.guru99.com/seo/page-1.html");
     }
 
     @Test
     @Description("Test selecting a menu item using two string parameters")
     public void testSelectMenuItemTwoStrings() {
         guru99Page.selectMenuItem("SEO", "Page-1");
-        // Verify the URL after navigation
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+        verifyAndRefresh("SEO", "Page-1");
         Assert.assertEquals(driver.getCurrentUrl(), "https://demo.guru99.com/seo/page-1.html");
-//        Assert.assertEquals(driver.getCurrentUrl(), "https://demo.guru99.com/#google_vignette");
-
-        //****************************************************************************************
-        // Note:
-        //********************
-        // The site I navigate to once opens with Google adds and once without (on and off)
-        // So both tests above need to be the opposite to each other on each run to succeed
-        // See lines: 39-40 and 53-54 above
-        //****************************************************************************************
     }
 }
